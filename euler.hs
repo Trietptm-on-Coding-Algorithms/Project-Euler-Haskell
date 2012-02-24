@@ -1,12 +1,9 @@
 import Data.List
 import Data.Char
 
-trianglenum :: Integer -> Integer
-trianglenum n = sum [1..n]
-
 divisors :: Integer -> [Integer]
 divisors 1 = [1]
-divisors x = flatten [(k, x `div` k) | k <- [1..floor (sqrt (fromInteger x))], x `mod` k == 0]
+divisors x = (nub . sort . flatten) [(k, x `div` k) | k <- [1..floor (sqrt (fromInteger x))], x `mod` k == 0]
     where flatten [] = []
           flatten ((x, y):ys) = x : y : flatten ys
 
@@ -24,6 +21,8 @@ fibo k =
         helper n (x,y) = helper (n - 1) (x + y, x)
     in helper k (1,0)
 
+p15 = product [21..40] `div` product [1..20]
+
 -- 9^5 = 59049 -- 9
 -- 9^5 * 6 = 354294 -- 99999
 -- 9^5 * 7 = 413343 -- 999999
@@ -35,3 +34,6 @@ p30 = sum . filter (\x -> (sum . map ((^5) . digitToInt) . show) x == x) $ [10..
 -- 9! * 8 = 2903040
 p34 :: Int
 p34 = sum . filter (\x -> (sum . map ((\x -> product [1..x]) . digitToInt) . show) x == x) $ [10..2540160]
+
+p48 :: Integer
+p48 = sum [a^a | a <- [1..1000]] `mod` 10 ^ 10
