@@ -29,3 +29,9 @@ fibo k =
 -- 9^5 * 7 = 413343 -- 999999
 p30 :: Int
 p30 = sum . filter (\x -> (sum . map ((^5) . digitToInt) . show) x == x) $ [2..413343]
+
+-- 9! = 362880
+-- 9! * 7 = 2540160
+-- 9! * 8 = 2903040
+p34 :: Int
+p34 = sum . filter (\x -> (sum . map ((\x -> product [1..x]) . digitToInt) . show) x == x) $ [3..2540160]
